@@ -25,6 +25,7 @@ public class Frecuent {
 	private String banck;
 	@Column 
 	private String number_card;
+	
 	public long getId() {
 		return id;
 	}

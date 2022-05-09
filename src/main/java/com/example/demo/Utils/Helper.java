@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.DAO.IAccount;
+import com.example.demo.beans.OperationTO;
 import com.example.demo.beans.ResponseTO;
 import com.example.demo.entity.*;
 
@@ -18,14 +19,11 @@ public class Helper {
 
 	private static final Logger log = LoggerFactory.getLogger(Helper.class);
 
-	@Autowired
-	private static IAccount iaccount;
-
 	public static boolean validatePassword(Customer customer, String password) {
 		return (customer.getPassword().equals(password)) ? true : false;
 	}
 
-	public static ResponseEntity<ResponseTO<Boolean>> doWithdraw(Account accountObj, double amount) {
+	public static ResponseEntity<ResponseTO<Boolean>> doWithdraw(IAccount iaccount, Account accountObj, double amount) {
 		ResponseTO<Boolean> response = new ResponseTO<Boolean>();
 		try {
 			Optional<Account> account = iaccount.findById(accountObj.getId());
@@ -52,17 +50,32 @@ public class Helper {
 			
 			aux.setBalance(resultNewBalance);
 			iaccount.save(aux);
-			response.setMessage("Retiro realizado con exito");
+			response.setMessage("Operacion realizado con exito");
 			response.setStatus(0);
 			response.setResponse(true);
 			log.info("Retiro realizado correctamente");
 			return new ResponseEntity<ResponseTO<Boolean>>(response, HttpStatus.OK);
 		} catch(Exception e) {
-			log.info("Incidencia al realizar retiro {}", e.getMessage());
+			log.info("Incidencia al realizar operacion {}", e.getMessage());
 			response.setMessage("Ocurrio un error al realizar el retiro");
 			response.setStatus(-1);
 			response.setResponse(false);
 			return new ResponseEntity<ResponseTO<Boolean>>(response, HttpStatus.OK);
 		}
+	}
+
+	public static Transfer buildTransferObject(OperationTO operation, Account account, Frecuent frecuent) {
+		Transfer transfer = new Transfer();
+		transfer.setAccount(account);
+		transfer.setFrecuent(frecuent);
+		transfer.setAmount(operation.getAmount());
+		return transfer;
+	}
+
+	public static Withdraw buildWithdrawObject(OperationTO operation, Account account) {
+		Withdraw obj = new Withdraw();
+		obj.setAccount(account);
+		obj.setAmount(operation.getAmount());
+		return obj;
 	}
 }

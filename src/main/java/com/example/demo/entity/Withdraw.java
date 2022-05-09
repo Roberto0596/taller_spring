@@ -16,10 +16,21 @@ public class Withdraw {
 	private Account account;
 	
 	@Column
-	private long amount;
+	private double amount;
 	
 	@Column
 	private Date date;
+	
+	@Column
+	private String folio;
+
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
 
 	public long getId() {
 		return id;
@@ -37,11 +48,11 @@ public class Withdraw {
 		this.account = account;
 	}
 
-	public long getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(long amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

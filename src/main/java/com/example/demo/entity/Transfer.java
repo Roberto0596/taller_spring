@@ -30,10 +30,18 @@ public class Transfer {
 	private String folio;
 	
 	@Column
-	private long amount;
+	private double amount;
 	
 	@Column
 	private Date date;
+
+	public String getFolio() {
+		return folio;
+	}
+
+	public void setFolio(String folio) {
+		this.folio = folio;
+	}
 
 	public long getId() {
 		return id;
@@ -59,11 +67,11 @@ public class Transfer {
 		this.account = account;
 	}
 
-	public long getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(long amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
