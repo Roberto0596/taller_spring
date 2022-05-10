@@ -14,9 +14,8 @@ public class BancoAspect {
 	private static final Logger log = LoggerFactory.getLogger(BancoAspect.class);	
 	
 	@Around("within (com.example.demo.controller..*)")
-	public void doAspect(ProceedingJoinPoint join) throws Throwable {
+	public Object doAspect(ProceedingJoinPoint join) throws Throwable {
 		log.info("Entre  aspecto y lo ejecutaré");
-		join.proceed();
-		log.info("Terminé de ejecutar el metodo");
+		return join.proceed();
 	}
 }

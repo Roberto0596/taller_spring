@@ -39,6 +39,8 @@ public class Helper {
 			Account aux = account.get();
 			double balance = aux.getBalance();
 			double resultNewBalance = balance - amount;
+			log.info("saldo {}", balance);
+			log.info("resultado del saldo {}", resultNewBalance);
 			
 			if(amount > balance && resultNewBalance < 0) {
 				log.info("El saldo de salida es menor al balance de la cuenta");

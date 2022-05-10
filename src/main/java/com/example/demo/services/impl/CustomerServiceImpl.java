@@ -36,8 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
 			
 			if(login.isEmpty()) {
 				log.info("Login vacio");
+				response.setStatus(-1);
 				response.setMessage("No se encontraron registros");
-				return new ResponseEntity<ResponseTO<Customer>>(response, HttpStatus.NO_CONTENT);
+				return new ResponseEntity<ResponseTO<Customer>>(response, HttpStatus.OK);
 			}
 			
 			if(Helper.validatePassword(login.get(0), loginTo.getPassword())) {

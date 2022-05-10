@@ -33,8 +33,10 @@ public class MovementServiceImpl implements MovementService {
 			
 			if(accounts.isEmpty()) {
 				log.info("no existen movimientos");
-				response.setMessage("No se encontraron registros");
-				return new ResponseEntity<ResponseTO<List<Movement>>>(response, HttpStatus.NO_CONTENT);
+				response.setStatus(-1);
+				response.setMessage("No hay movimientos");
+				response.setResponse(null);
+				return new ResponseEntity<ResponseTO<List<Movement>>>(response, HttpStatus.OK);
 			}
 			
 			log.info("Lista de movimientos {}", accounts);
